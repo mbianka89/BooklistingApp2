@@ -3,47 +3,42 @@ package com.example.android.booklistingapp;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
-import android.content.Intent;
 import android.content.Loader;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.key;
-
-public class BooklistingActivity extends AppCompatActivity
-        implements LoaderCallbacks<List<Booklisting>>{
+public class BooklistingActivity extends AppCompatActivity implements LoaderCallbacks<List<Booklisting>> {
 
     private static final String LOG_TAG = BooklistingActivity.class.getName();
 
-    /** URL for booklist data from the Google Books API */
-    private static final String GOOGLE_BOOKS_API_REQUEST_URL =
-            "https://www.googleapis.com/books/v1/volumes?maxResults=30&orderBy=newest&q=";
+    private static final String BOOKLISTING_JSON =
+            "http://www.googleapis.com/books/v1/volumes?maxResults=30&orderBy=newest&q=";
 
     /**
      * Constant value for the booklist loader ID.
      */
     private static final int BOOKLISTING_LOADER_ID = 1;
 
-    /** Adapter for the list of books */
+    /**
+     * Adapter for the list of books
+     */
     private BooklistingAdapter mAdapter;
 
-    /** TextView that is displayed when the list is empty */
+    /**
+     * TextView that is displayed when the list is empty
+     */
     private TextView mEmptyStateTextView;
+    private String mQuery;
+    private ProgressBar loadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,4 +83,42 @@ public class BooklistingActivity extends AppCompatActivity
             // Update empty state with no connection error message
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
-    }}
+
+    }
+
+    @Override
+    public Loader<List<Booklisting>> onCreateLoader(int i, Bundle bundle) {
+        String requestUrl = "";
+        if (mQuery != null && mQuery != "") {
+            requestUrl = BOOKLISTING_JSON + mQuery;
+        } else {
+            String defaultQuery = "android";
+            requestUrl = BOOKLISTING_JSON + defaultQuery;
+        }
+        // Create a new loader for the given URL
+        return new BooklistingLoader(this, requestUrl);
+
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Booklisting>> loader, List<Booklisting> books) {
+        //Set empty state view text to display "No books found"
+        mEmptyStateTextView.setText(R.string.no_books_found);
+        //Hide the loading indicator because the data has been loaded.
+        loadingIndicator.setVisibility(View.GONE);
+        //Clear the adapter of previous booklisting data
+        mAdapter.clear();
+        //If there is a valid list of {@link Booklistings}s, then add them to the adapter's data set.
+        if (books != null && !books.isEmpty()) {
+            mAdapter.addAll(books);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Booklisting>> loader) {
+        //Loader reset, so we can clear out our existing data.
+        mAdapter.clear();
+    }
+}
+
+
