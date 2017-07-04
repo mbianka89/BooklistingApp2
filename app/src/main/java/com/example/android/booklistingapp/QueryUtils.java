@@ -158,7 +158,7 @@ import java.util.List;
 
                 // Extract the JSONArray associated with the key called "features",
                 // which represents a list of features (or booklists).
-                JSONArray booklistingArray = baseJsonResponse.getJSONArray("features");
+                JSONArray booklistingArray = baseJsonResponse.getJSONArray("items");
 
                 // For each book in the booklistingArray, create an {@link Booklisting} object
                 for (int i = 0; i < booklistingArray.length(); i++) {
@@ -169,10 +169,10 @@ import java.util.List;
                     // For a given booklisting, extract the JSONObject associated with the
                     // key called "properties", which represents a list of all properties
                     // for that booklisting.
-                    JSONObject properties = currentBooklisting.getJSONObject("properties");
+                    JSONObject properties = currentBooklisting.getJSONObject("volumeInfo");
 
                     // Extract the value for the key called "author"
-                    String author = properties.getString("author");
+                    String author = properties.getString("authors");
 
                     // Extract the value for the key called "title"
                     String title = properties.getString("title");

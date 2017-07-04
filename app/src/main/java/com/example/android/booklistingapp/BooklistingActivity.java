@@ -16,12 +16,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BooklistingActivity extends AppCompatActivity implements LoaderCallbacks<List<Booklisting>> {
+
+public class BooklistingActivity extends AppCompatActivity
+        implements LoaderCallbacks<List<Booklisting>> {
 
     private static final String LOG_TAG = BooklistingActivity.class.getName();
 
     private static final String BOOKLISTING_JSON =
-            "http://www.googleapis.com/books/v1/volumes?maxResults=30&orderBy=newest&q=";
+            "https://www.googleapis.com/books/v1/volumes?maxResults=30&orderBy=newest&q=android";
 
     /**
      * Constant value for the booklist loader ID.
@@ -40,6 +42,7 @@ public class BooklistingActivity extends AppCompatActivity implements LoaderCall
     private String mQuery;
     private ProgressBar loadingIndicator;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,8 @@ public class BooklistingActivity extends AppCompatActivity implements LoaderCall
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
         booklistingListView.setEmptyView(mEmptyStateTextView);
+
+        loadingIndicator = (ProgressBar)findViewById(R.id.loading_indicator);
 
         // Create a new adapter that takes an empty list of books as input
         mAdapter = new BooklistingAdapter(this, new ArrayList<Booklisting>());
@@ -77,7 +82,6 @@ public class BooklistingActivity extends AppCompatActivity implements LoaderCall
         } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will be visible
-            View loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
 
             // Update empty state with no connection error message
@@ -105,6 +109,7 @@ public class BooklistingActivity extends AppCompatActivity implements LoaderCall
         //Set empty state view text to display "No books found"
         mEmptyStateTextView.setText(R.string.no_books_found);
         //Hide the loading indicator because the data has been loaded.
+        loadingIndicator = (ProgressBar)findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
         //Clear the adapter of previous booklisting data
         mAdapter.clear();
@@ -120,5 +125,4 @@ public class BooklistingActivity extends AppCompatActivity implements LoaderCall
         mAdapter.clear();
     }
 }
-
 
