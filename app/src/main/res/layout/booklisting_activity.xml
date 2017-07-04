@@ -10,15 +10,6 @@
         android:layout_alignParentTop="true"
         android:queryHint="@string/search" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/search_hint"
-        android:layout_above="@+id/list"
-        android:layout_toRightOf="@+id/search"
-        android:layout_toEndOf="@+id/search" />
-
-
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
