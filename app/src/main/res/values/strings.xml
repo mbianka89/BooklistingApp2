@@ -3,4 +3,6 @@
     <!-- Error message when there is no internet connectivity [CHAR LIMIT=NONE] -->
     <string name="no_internet_connection">No internet connection.</string>
     <string name="no_books_found">No books found.</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Write the title or the author of the book here.</string>
 </resources>
