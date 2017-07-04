@@ -93,6 +93,9 @@ public class BooklistingActivity extends AppCompatActivity
     @Override
     public Loader<List<Booklisting>> onCreateLoader(int i, Bundle bundle) {
         String requestUrl = "";
+
+        //String mQuery = mQuery (EditText R.id.search_edit_text);
+
         if (mQuery != null && mQuery != "") {
             requestUrl = BOOKLISTING_JSON + mQuery;
         } else {
