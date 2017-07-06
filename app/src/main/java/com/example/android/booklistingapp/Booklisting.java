@@ -27,7 +27,7 @@ public class Booklisting {
      * @param author is the author of the book
      * @param title  of the book
      */
-    public Booklisting(String author, String title, String url) {
+    public Booklisting(String author, String title) {
         mAuthor = author;
         mTitle = title;
     }

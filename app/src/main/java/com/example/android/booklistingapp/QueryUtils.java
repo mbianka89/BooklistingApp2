@@ -167,22 +167,19 @@ import java.util.List;
                     JSONObject currentBooklisting = booklistingArray.getJSONObject(i);
 
                     // For a given booklisting, extract the JSONObject associated with the
-                    // key called "properties", which represents a list of all properties
+                    // key called "items", which represents a list of all items
                     // for that booklisting.
-                    JSONObject properties = currentBooklisting.getJSONObject("volumeInfo");
+                    JSONObject items = currentBooklisting.getJSONObject("volumeInfo");
 
                     // Extract the value for the key called "author"
-                    String author = properties.getString("authors");
+                    String author = items.getString("authors");
 
                     // Extract the value for the key called "title"
-                    String title = properties.getString("title");
-
-                    // Extract the value for the key called "url"
-                    String url = properties.getString("url");
+                    String title = items.getString("title");
 
                     // Create a new {@link Booklisting} object with the author and title
-                    // and url from the JSON response.
-                    Booklisting booklisting = new Booklisting(author, title, url);
+                    //  from the JSON response.
+                    Booklisting booklisting = new Booklisting(author, title);
 
                     // Add the new {@link Booklisting} to the list of booklistings.
                     booklistings.add(booklisting);
