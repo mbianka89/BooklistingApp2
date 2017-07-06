@@ -82,6 +82,7 @@ public class BooklistingActivity extends AppCompatActivity
         } else {
             // Otherwise, display error
             // First, hide loading indicator so error message will be visible
+            View loadingIndicator = findViewById(R.id.loading_indicator);
             loadingIndicator.setVisibility(View.GONE);
 
             // Update empty state with no connection error message
@@ -109,11 +110,14 @@ public class BooklistingActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<List<Booklisting>> loader, List<Booklisting> books) {
-        //Set empty state view text to display "No books found"
-        mEmptyStateTextView.setText(R.string.no_books_found);
-        //Hide the loading indicator because the data has been loaded.
-        loadingIndicator = (ProgressBar)findViewById(R.id.loading_indicator);
+
+        // Hide loading indicator because the data has been loaded
+        View loadingIndicator = findViewById(R.id.loading_indicator);
         loadingIndicator.setVisibility(View.GONE);
+
+        // /Set empty state view text to display "No books found"
+        mEmptyStateTextView.setText(R.string.no_books_found);
+
         //Clear the adapter of previous booklisting data
         mAdapter.clear();
         //If there is a valid list of {@link Booklistings}s, then add them to the adapter's data set.
@@ -128,4 +132,3 @@ public class BooklistingActivity extends AppCompatActivity
         mAdapter.clear();
     }
 }
-

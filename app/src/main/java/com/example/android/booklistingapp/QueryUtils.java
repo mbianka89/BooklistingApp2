@@ -156,7 +156,7 @@ import java.util.List;
                 // Create a JSONObject from the JSON response string
                 JSONObject baseJsonResponse = new JSONObject(booklistingJSON);
 
-                // Extract the JSONArray associated with the key called "features",
+                // Extract the JSONArray associated with the key called "items",
                 // which represents a list of features (or booklists).
                 JSONArray booklistingArray = baseJsonResponse.getJSONArray("items");
 
