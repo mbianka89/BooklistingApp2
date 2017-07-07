@@ -1,33 +1,27 @@
 <!-- Layout for a list of books -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <SearchView
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:queryHint="@string/search" />
 
     <EditText
         android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search_hint"
         android:layout_above="@+id/list"
-        android:layout_toRightOf="@+id/search_button"
-        android:layout_toEndOf="@+id/search_button" />
+        android:layout_alignParentTop="true"
+        android:hint="@string/search_hint" />
 
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/search_edit_text"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:orientation="vertical"
-        android:layout_below="@+id/search_button" />
+        android:orientation="vertical" />
 
     <!-- Empty view is only visible when the list has no items. -->
     <TextView
@@ -45,4 +39,4 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
 
-</RelativeLayout>
+</LinearLayout>
