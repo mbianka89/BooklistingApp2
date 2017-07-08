@@ -174,7 +174,7 @@ public final class QueryUtils {
                 // Extract the value for the key called "author"...
                 String author = items.getString("authors");
 
-                // Extract the value for the key called "authors"
+                // Extract the value for the key called "authors", if there is more than 1 author
                 StringBuilder authorList = new StringBuilder();
                 if (items.has("authors")) {
                     JSONArray authors = items.getJSONArray("authors");
