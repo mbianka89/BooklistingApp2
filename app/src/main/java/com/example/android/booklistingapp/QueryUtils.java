@@ -171,7 +171,7 @@ public final class QueryUtils {
                 // for that booklisting.
                 JSONObject items = currentBooklisting.getJSONObject("volumeInfo");
 
-                // Extract the value for the key called "author"
+                // Extract the value for the key called "author"...
                 String author = items.getString("authors");
 
                 // Extract the value for the key called "title"
