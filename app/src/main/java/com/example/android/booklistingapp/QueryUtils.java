@@ -195,5 +195,4 @@ public final class QueryUtils {
         // Return the list of booklist
         return booklistings;
     }
-
 }
