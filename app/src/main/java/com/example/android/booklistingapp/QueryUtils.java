@@ -174,6 +174,19 @@ public final class QueryUtils {
                 // Extract the value for the key called "author"...
                 String author = items.getString("authors");
 
+                // Extract the value for the key called "authors"
+                StringBuilder authorList = new StringBuilder();
+                if (items.has("authors")) {
+                    JSONArray authors = items.getJSONArray("authors");
+                    authorList.append(authors.getString(0));
+                    for (int j = 1; j < authors.length(); j++) {
+                        authorList.append(", " + authors.getString(j)); //if there is more than 1 author,
+                        // we list them all, devided by commas
+                    }
+                } else {
+                    authorList.append("(unknown author)");
+                }
+
                 // Extract the value for the key called "title"
                 String title = items.getString("title");
 
