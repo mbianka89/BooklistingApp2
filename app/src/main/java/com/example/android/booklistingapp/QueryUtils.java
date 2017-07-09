@@ -171,28 +171,12 @@ public final class QueryUtils {
                 // for that booklisting.
                 JSONObject items = currentBooklisting.getJSONObject("volumeInfo");
 
-                // Extract the value for the key called "author"...
-                String author = items.getString("authors");
-
-                // Extract the value for the key called "authors", if there is more than 1 author
-                StringBuilder authorList = new StringBuilder();
-                if (items.has("authors")) {
-                    JSONArray authors = items.getJSONArray("authors");
-                    authorList.append(authors.getString(0));
-                    for (int j = 1; j < authors.length(); j++) {
-                        authorList.append(", " + authors.getString(j)); //if there is more than 1 author,
-                        // we list them all, devided by commas
-                    }
-                } else {
-                    authorList.append("(unknown author)");
-                }
-
                 // Extract the value for the key called "title"
                 String title = items.getString("title");
 
                 // Create a new {@link Booklisting} object with the author and title
                 //  from the JSON response.
-                Booklisting booklisting = new Booklisting(author, title);
+                Booklisting booklisting = new Booklisting(extractAuthors(items), title);
 
                 // Add the new {@link Booklisting} to the list of booklistings.
                 booklistings.add(booklisting);
@@ -207,5 +191,23 @@ public final class QueryUtils {
 
         // Return the list of booklist
         return booklistings;
+    }
+
+    private static String extractAuthors(JSONObject volumeInfo) throws JSONException {
+        String authors = "";
+        JSONArray authorsArray = volumeInfo.optJSONArray("authors");
+
+        if (authorsArray != null) {
+            for (int j = 0; j < authorsArray.length(); j++) {
+                authors += authorsArray.getString(j) + ", ";
+            }
+
+            //Remove the last two characters from the string
+            authors = authors.substring(0, authors.length() - 2);
+        } else {
+            authors = "Unknown author";
+        }
+
+        return authors;
     }
 }
