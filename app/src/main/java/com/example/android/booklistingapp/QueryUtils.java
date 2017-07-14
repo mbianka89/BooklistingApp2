@@ -156,8 +156,7 @@ public final class QueryUtils {
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(booklistingJSON);
 
-            // Extract the JSONArray associated with the key called "items",
-            // which represents a list of features (or booklists).
+
             JSONArray booklistingArray = baseJsonResponse.getJSONArray("items");
 
             // For each book in the booklistingArray, create an {@link Booklisting} object
@@ -172,8 +171,9 @@ public final class QueryUtils {
                 JSONObject items = currentBooklisting.getJSONObject("volumeInfo");
 
                 // Extract the value for the key called "author"...
-                String author = items.getString("authors");
-
+                if(items.has("authors")) {
+                    String author = items.getString("authors");
+                }
                 // Extract the value for the key called "authors", if there is more than 1 author
                 StringBuilder authorList = new StringBuilder();
                 if (items.has("authors")) {
@@ -187,12 +187,15 @@ public final class QueryUtils {
                     authorList.append("(unknown author)");
                 }
 
+                // Extract the value for the key called "authors"
+                String authors = items.getString("authors");
+
                 // Extract the value for the key called "title"
                 String title = items.getString("title");
 
                 // Create a new {@link Booklisting} object with the author and title
                 //  from the JSON response.
-                Booklisting booklisting = new Booklisting(author, title);
+                Booklisting booklisting = new Booklisting(authors, title);
 
                 // Add the new {@link Booklisting} to the list of booklistings.
                 booklistings.add(booklisting);

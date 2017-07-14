@@ -58,7 +58,7 @@ import java.util.List;
             // Find the TextView with view ID title
             TextView titleView = (TextView) listItemView.findViewById(R.id.title_list_item);
             // Display the title of the current book in that TextView
-            authorView.setText(currentBooklisting.getmTitle());
+            titleView.setText(currentBooklisting.getmTitle());
 
 
             // Return the list item view that is now showing the appropriate data
