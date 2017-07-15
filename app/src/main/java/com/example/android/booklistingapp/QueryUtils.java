@@ -161,7 +161,9 @@ public final class QueryUtils {
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(booklistingJSON);
 
-
+            if (!baseJsonResponse.has("items")) {
+                return null;
+            }
             JSONArray booklistingArray = baseJsonResponse.getJSONArray("items");
 
             // For each book in the booklistingArray, create an {@link Booklisting} object
@@ -174,6 +176,7 @@ public final class QueryUtils {
                 // key called "items", which represents a list of all items
                 // for that booklisting.
                 JSONObject items = currentBooklisting.getJSONObject("volumeInfo");
+
 
                 // Extract the value for the key called "author"...
 
