@@ -29,6 +29,9 @@ public final class QueryUtils {
 
     /** Tag for the log messages */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    private static final String UNKNOWN_AUTHOR = "Unknown Author";
+    private static final String AUTHOR_SEPARATOR = ", ";
+    private static final String JSON_KEY_BOOK_AUTHORS = "authors";
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -171,31 +174,31 @@ public final class QueryUtils {
                 JSONObject items = currentBooklisting.getJSONObject("volumeInfo");
 
                 // Extract the value for the key called "author"...
-                if(items.has("authors")) {
-                    String author = items.getString("authors");
-                }
-                // Extract the value for the key called "authors", if there is more than 1 author
-                StringBuilder authorList = new StringBuilder();
-                if (items.has("authors")) {
-                    JSONArray authors = items.getJSONArray("authors");
-                    authorList.append(authors.getString(0));
-                    for (int j = 1; j < authors.length(); j++) {
-                        authorList.append(", " + authors.getString(j)); //if there is more than 1 author,
-                        // we list them all, devided by commas
+
+                JSONArray authorArray = items.optJSONArray(JSON_KEY_BOOK_AUTHORS);
+                ArrayList<String> authors = new ArrayList<>();
+
+                if (null != authorArray && authorArray.length() != 0) {
+                    for (int j = 0; j < authorArray.length(); j++) {
+                        try {
+                            authors.add(authorArray.getString(j));
+                        } catch (JSONException e) {
+                            authors.add(UNKNOWN_AUTHOR);
+                        }
                     }
                 } else {
-                    authorList.append("(unknown author)");
+                    authors.add(UNKNOWN_AUTHOR);
                 }
 
-                // Extract the value for the key called "authors"
-                String authors = items.getString("authors");
+                String finalAuthorsString = TextUtils.join(AUTHOR_SEPARATOR , authors);
+
 
                 // Extract the value for the key called "title"
                 String title = items.getString("title");
 
                 // Create a new {@link Booklisting} object with the author and title
                 //  from the JSON response.
-                Booklisting booklisting = new Booklisting(authors, title);
+                Booklisting booklisting = new Booklisting(finalAuthorsString, title);
 
                 // Add the new {@link Booklisting} to the list of booklistings.
                 booklistings.add(booklisting);
