@@ -50,7 +50,7 @@ public class BooklistingActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booklisting_activity);
-            loaderManager = getLoaderManager();
+        loaderManager = getLoaderManager();
 
         // Find a reference to the {@link ListView} in the layout
         ListView booklistingListView = (ListView) findViewById(R.id.list);

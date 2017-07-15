@@ -27,7 +27,9 @@ import java.util.List;
  */
 public final class QueryUtils {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
     private static final String UNKNOWN_AUTHOR = "Unknown Author";
     private static final String AUTHOR_SEPARATOR = ", ";
@@ -190,7 +192,7 @@ public final class QueryUtils {
                     authors.add(UNKNOWN_AUTHOR);
                 }
 
-                String finalAuthorsString = TextUtils.join(AUTHOR_SEPARATOR , authors);
+                String finalAuthorsString = TextUtils.join(AUTHOR_SEPARATOR, authors);
 
 
                 // Extract the value for the key called "title"

@@ -6,16 +6,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title_list_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/textColorAuthorsName"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
+    <TextView
+        android:id="@+id/title_list_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/textColorAuthorsName"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
 
     <TextView
         android:id="@+id/author_list_item"
@@ -26,4 +26,4 @@
         android:textColor="@color/textColorAuthorsName"
         android:textSize="16sp"
         tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
-    </LinearLayout>
+</LinearLayout>

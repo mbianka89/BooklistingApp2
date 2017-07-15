@@ -43,6 +43,7 @@ public class Booklisting {
     /**
      * Returns the title of the book.
      */
-    public String getmTitle() { return mTitle;
+    public String getmTitle() {
+        return mTitle;
     }
 }
